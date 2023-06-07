@@ -6,8 +6,8 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Minecraft Script Modules Documents</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
-    <script src='/static/main.js'></script>
+    <link rel='stylesheet' type='text/css' media='screen' href='./static/main.css'>
+    <script src='./static/main.js'></script>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                     let canvasElements = document.getElementsByClassName('dropdown_arrow')
                     
                     let img = new Image()
-                    img.src = '/static/arrow_left_white.png'
+                    img.src = './static/arrow_left_white.png'
 
                     img.onload = () => {
                         for (let c of canvasElements) {
@@ -43,7 +43,7 @@
                 <ul id="version_list">
                     <script>
                         function getVersion() {
-                            fetch('/version.json').then(v => {
+                            fetch('./version.json').then(v => {
                                 let jsonObject = v.text().then(text => JSON.parse(text))
                                 jsonObject.then(o => {
                                     let versions = Object.getOwnPropertyNames(o.versions)
