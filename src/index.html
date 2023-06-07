@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Minecraft Script Modules Documents</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/main.css'>
+    <script src='/static/main.js'></script>
+</head>
+
+<body>
+    <div class="top_float_bar">
+        <span id="logo_text">
+            <script>
+                let logo = document.getElementById('logo_text')
+                logo.innerHTML = window.location.hostname
+                logo.onclick = () => window.location = "/"
+            </script>
+        </span>
+        <span id="version_selector">
+            <button id="current_version" type="button"></button>
+            <canvas class="dropdown_arrow" id="version_dropdown_arrow" width="8" height="14"></canvas>
+            <script>
+                window.onload = () => {
+                    let canvasElements = document.getElementsByClassName('dropdown_arrow')
+                    
+                    let img = new Image()
+                    img.src = '/static/arrow_left_white.png'
+
+                    img.onload = () => {
+                        for (let c of canvasElements) {
+                            let ctx = c.getContext('2d')
+                            ctx.imageSmoothingEnabled = false
+                            // ctx.imageSmoothingQuality = "none"
+                            ctx.drawImage(img, 0, 0, img.width * (c.height / img.height), img.height * (c.height / img.height))
+                        }
+                    }
+                }
+            </script>
+            <div id="dropdown_content">
+                <ul id="version_list">
+                    <script>
+                        function getVersion() {
+                            fetch('/version.json').then(v => {
+                                let jsonObject = v.text().then(text => JSON.parse(text))
+                                jsonObject.then(o => {
+                                    let versions = Object.getOwnPropertyNames(o.versions)
+                                    document.getElementById('current_version').innerHTML = o.latest.release
+                                    versions.forEach(ver => {
+                                        let item = document.createElement('li')
+                                        item.innerHTML = ver
+                                        document.getElementById('version_list').appendChild(item)
+                                    })
+                                    highlight()
+                                })
+                            })
+                        }
+
+                        function highlight() {
+                            let current_version = document.getElementById('current_version')
+                            let version_list = document.getElementById('version_list')
+                            let current_selected
+                            version_list.childNodes.forEach(v => {
+                                if (v.innerHTML == current_version.innerHTML) {
+                                    v.setAttribute('selected', true)
+                                    current_selected = v
+                                } else {
+                                    v.onclick = () => {
+                                        current_selected.removeAttribute('selected')
+                                        current_version.innerHTML = v.innerHTML
+                                        highlight()
+                                    }
+                                }
+                            })
+                        }
+                        getVersion()
+                    </script>
+                </ul>
+            </div>
+        </span>
+    </div>
+    <div class="content_frame">
+        <div id="tree">
+            <ul opened="true">
+                <li></li>
+            </ul>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+
+</html>
