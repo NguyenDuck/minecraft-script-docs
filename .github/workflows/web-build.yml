@@ -22,10 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Move version.json
-        run: |
-          mv version.json ./src/version.json
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
