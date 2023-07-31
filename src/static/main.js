@@ -1,4 +1,6 @@
 window.onload = () => {
+  marked.defaults.mangle = false
+  marked.defaults.headerIds = false
   // Logo Text
   let logo = document.getElementById("logo_text");
   logo.innerHTML = window.location.hostname;
