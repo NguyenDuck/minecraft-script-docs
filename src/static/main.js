@@ -1,5 +1,3 @@
-import {marked} from './marked.min.js'
-
 window.onload = () => {
   // Logo Text
   let logo = document.getElementById("logo_text");
@@ -152,7 +150,7 @@ window.onload = () => {
         }
         reloadToggle();
       });
-    });
+    })
   }
   getVersion();
 
@@ -165,7 +163,9 @@ window.onload = () => {
   function syncCurrentDocs() {
     let current_version = document.getElementById("current_version")
     let content = document.getElementById("content")
-    fetch(`docs/v${current_version.innerHTML}/${content.getAttribute("url_data")}`).then((v) => {
+    let data = content.getAttribute("url_data")
+    if (!data) return
+    fetch(`docs/v${current_version.innerHTML}/${data}`).then((v) => {
       v.text().then(t => {
         content.innerHTML = marked.parse(filter(t));
       })
