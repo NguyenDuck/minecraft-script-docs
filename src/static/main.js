@@ -130,14 +130,9 @@ window.onload = () => {
               item.setAttribute("title", folder_name);
               item.onclick = () => {
                 let content = document.getElementById("content")
-                fetch(`docs/v${current_version.innerHTML}/${path}`).then((v) => {
-                  v.text().then(t => {
-                    try {
-                      content.innerHTML = marked.parse(filter(t));
-                    } catch {}
-                    content.setAttribute("url_data", path)
-                  })
-                });
+                setContent(current_version.innerText, path, () => {
+                  content.setAttribute("url_data", path)
+                })
               };
               element.appendChild(item);
             } else {
@@ -165,11 +160,17 @@ window.onload = () => {
     let content = document.getElementById("content")
     let data = content.getAttribute("url_data")
     if (!data) return
-    fetch(`docs/v${current_version.innerHTML}/${data}`).then((v) => {
+    setContent(current_version.innerText, data)
+  }
+
+  // Set Content
+  function setContent(version, path, callback) {
+    fetch(`docs/v${version}/${path}`).then((v) => {
       v.text().then(t => {
         try {
           content.innerHTML = marked.parse(filter(t));
         } catch {}
+        if (callback) callback.call(this)
       })
     });
   }
