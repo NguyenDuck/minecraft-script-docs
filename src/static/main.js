@@ -1,3 +1,5 @@
+import {marked} from 'https://cdn.jsdelivr.net/npm/marked/marked.min.js'
+
 window.onload = () => {
   // Logo Text
   let logo = document.getElementById("logo_text");
