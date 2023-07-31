@@ -169,7 +169,9 @@ window.onload = () => {
     if (!data) return
     fetch(`docs/v${current_version.innerHTML}/${data}`).then((v) => {
       v.text().then(t => {
-        content.innerHTML = marked.parse(filter(t));
+        try {
+          content.innerHTML = marked.parse(filter(t));
+        } catch {}
       })
     });
   }
