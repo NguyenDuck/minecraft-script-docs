@@ -134,9 +134,7 @@ window.onload = () => {
                   v.text().then(t => {
                     try {
                       content.innerHTML = marked.parse(filter(t));
-                    } catch (err) {
-                      console.error(err)
-                    }
+                    } catch {}
                     content.setAttribute("url_data", path)
                   })
                 });
