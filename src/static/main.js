@@ -132,7 +132,11 @@ window.onload = () => {
                 let content = document.getElementById("content")
                 fetch(`docs/v${current_version.innerHTML}/${path}`).then((v) => {
                   v.text().then(t => {
-                    content.innerHTML = marked.parse(filter(t));
+                    try {
+                      content.innerHTML = marked.parse(filter(t));
+                    } catch (err) {
+                      console.error(err)
+                    }
                     content.setAttribute("url_data", path)
                   })
                 });
