@@ -38,10 +38,10 @@ window.onload = () => {
             jsonObject.then((o) => {
                 let versions = Object.getOwnPropertyNames(o.versions);
                 document.getElementById("current_version").innerHTML = o.latest.release;
-                addVersion(o.latest.preview).setAttribute(
-                    "hash",
-                    "repo_sync_working_branch"
-                );
+                // addVersion(o.latest.preview).setAttribute(
+                //     "hash",
+                //     "repo_sync_working_branch"
+                // );
                 versions.forEach((b) =>
                     addVersion(b).setAttribute(
                         "hash",
@@ -95,8 +95,8 @@ window.onload = () => {
                 }
                 if (!jsonObject) return;
                 let sorted = jsonObject.paths.sort((a, b) => {
-                    a = a.split("/")[3];
-                    b = b.split("/")[3];
+                    a = a.split("/")[1];
+                    b = b.split("/")[1];
                     let firstCharA = a.charAt(0);
                     let firstCharB = b.charAt(0);
                     let isLowerCaseA = firstCharA.toLowerCase() === firstCharA;
@@ -111,6 +111,7 @@ window.onload = () => {
                 });
                 for (let path of sorted) {
                     let splited = path.split("/");
+                    element = document.getElementById("tree");
                     for (let i = 0; i < splited.length; i++) {
                         let folder_name = splited[i];
 
