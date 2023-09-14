@@ -1,0 +1,5 @@
+[submodule "src/bedrock_docs"]
+	path = src/bedrock_docs
+	url = https://github.com/MicrosoftDocs/minecraft-creator
+[submodule "bedrock_docs"]
+	branch = d9897cb
